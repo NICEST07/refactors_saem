@@ -1,0 +1,17 @@
+{
+    "ERR_NETWORK": "It seems there is a connection issue. Please try again later.",
+    "ERR_BAD_REQUEST": "An error occurred. The request could not be processed correctly.",
+    "ERR_TIMEOUT": "An error occurred. The server could not respond to this resource.",
+    "ERR_400": "Something went wrong with the request. Please try again.",
+    "ERR_401": "You do not have access to this resource.",
+    "ERR_403": "The resource cannot be accessed.",
+    "ERR_404": "The requested resource was not found. Please check the URL and try again.",
+    "ERR_409": "There is a conflict in the request. There may be an issue with the submitted data.",
+    "ERR_422": "The submitted entity could not be processed. Please check the data and try again.",
+    "ERR_500": "Internal server error. Please try again later.",
+    "ERR_502": "The server received an invalid response from an upstream server.",
+    "ERR_503": "The service is temporarily unavailable. Please try again later.",
+    "ERR_504": "Gateway timeout. Please try again later.",
+    "ECONNABORTED": "Timeout occurred, please try again later.",
+    "DEFAULT": "Sorry, an unexpected error occurred."
+}

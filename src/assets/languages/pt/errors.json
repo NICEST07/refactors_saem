@@ -1,0 +1,17 @@
+{
+    "ERR_NETWORK": "Parece que há um problema de conexão. Por favor, tente novamente mais tarde.",
+    "ERR_BAD_REQUEST": "Ocorreu um erro. A solicitação não pôde ser processada corretamente.",
+    "ERR_TIMEOUT": "Ocorreu um erro. O servidor não conseguiu responder a este recurso.",
+    "ERR_400": "Algo deu errado na solicitação. Tente novamente.",
+    "ERR_401": "Você não tem acesso a este recurso.",
+    "ERR_403": "Não é possível acessar o recurso.",
+    "ERR_404": "O recurso solicitado não foi encontrado. Verifique o URL e tente novamente.",
+    "ERR_409": "Conflito na solicitação. Pode haver um problema com os dados enviados.",
+    "ERR_422": "A entidade enviada não pôde ser processada. Verifique os dados e tente novamente.",
+    "ERR_500": "Erro interno do servidor. Por favor, tente novamente mais tarde.",
+    "ERR_502": "O servidor recebeu uma resposta inválida de um servidor upstream.",
+    "ERR_503": "O serviço está temporariamente indisponível. Por favor, tente novamente mais tarde.",
+    "ERR_504": "Tempo limite de resposta do gateway esgotado. Tente novamente mais tarde.",
+    "ECONNABORTED": "Tempo limite esgotado, tente novamente mais tarde.",
+    "DEFAULT": "Desculpe, ocorreu um erro inesperado."
+}

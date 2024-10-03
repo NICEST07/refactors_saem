@@ -1,0 +1,17 @@
+{
+    "ERR_NETWORK": "Parece que hay un problema de conexión. Por favor, inténtalo de nuevo más tarde.",
+    "ERR_BAD_REQUEST": "Ha ocurrido un error. La solicitud no pudo ser procesada correctamente.",
+    "ERR_TIMEOUT": "Ocurrió un error. El servidor no pudo responder a este recurso.",
+    "ERR_400": "Algo salió mal en la petición. Inténtelo de nuevo.",
+    "ERR_401": "Usted no tiene acceso a este recurso.",
+    "ERR_403": "No se puede acceder al recurso.",
+    "ERR_404": "No se encontró el recurso solicitado. Verifique la URL e inténtelo de nuevo.",
+    "ERR_409": "Conflicto en la solicitud. Puede que haya un problema con los datos enviados.",
+    "ERR_422": "La entidad enviada no se pudo procesar. Verifique los datos y vuelva a intentar.",
+    "ERR_500": "Error interno del servidor. Por favor, inténtalo más tarde.",
+    "ERR_502": "El servidor recibió una respuesta inválida de un servidor ascendente.",
+    "ERR_503": "El servicio no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde.",
+    "ERR_504": "Tiempo de espera de la puerta de enlace agotado. Inténtalo más tarde.",
+    "ECONNABORTED": "Tiempo agotado, inténtelo más tarde.",
+    "DEFAULT": "Lo sentimos, ocurrió un error inesperado."
+}
