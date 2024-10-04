@@ -1,10 +1,6 @@
 'use client'
+import type { FailConfig } from '../models/two-factor'
 import { createContext, useContext } from 'react'
-
-export interface FailConfig {
-  resetPass?: boolean
-  otpKey?: boolean
-}
 
 export interface LoginState {
   userMail: `${string}@${string}` | null

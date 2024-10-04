@@ -18,6 +18,7 @@ import { loginUser } from '../../services/login'
 import { toast } from 'sonner'
 import { useStepFlow } from '@src/core/components/step-flow'
 import { VIEWS } from '../../constants/views'
+import { useRouter } from '@src/config/i18n/routing'
 
 export function LoginForm () {
   const { setToken } = useToken()
@@ -34,13 +35,11 @@ export function LoginForm () {
 
   const { executeRecaptcha } = useGoogleReCaptcha()
 
-  // const router = useRouter()
+  const router = useRouter()
 
   const onSubmit = async (formData: LoginValues) => {
     const tokenCaptcha = await executeRecaptcha?.('LOGIN') ?? ''
     const result = await loginUser(formData, tokenCaptcha)
-    console.log(result)
-
     if (result.success) {
       const { methoAuths, token, userMail } = result
       setToken(token)
@@ -111,9 +110,7 @@ export function LoginForm () {
           disabled={form.formState.isSubmitting}
           variant='outline-secondary'
           type='button'
-          onClick={() => {
-            throw new Error('Timeout XDE')
-          }}
+          onClick={() => router.push('/register')}
           className='uppercase rounded-full border h-12 bg-transparent'
         >
           {t('register')}
