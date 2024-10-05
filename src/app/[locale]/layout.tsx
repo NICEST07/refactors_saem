@@ -4,7 +4,6 @@ import { NextAuthProvider } from '@src/core/providers/next-auth'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import '@src/assets/globals.css'
-import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: 'Saem',
@@ -38,7 +37,6 @@ export default async function LocaleLayout ({
         <NextAuthProvider>
           <NextIntlClientProvider messages={messages}>
             {children}
-            <Toaster richColors />
           </NextIntlClientProvider>
         </NextAuthProvider>
       </body>

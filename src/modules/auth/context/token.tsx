@@ -4,11 +4,13 @@ import { createContext, useContext } from 'react'
 interface TokenContextType {
   token: string
   setToken: (token: string) => void
+  reset: () => void
 }
 
 export const TokenContext = createContext<TokenContextType>({
   token: '',
-  setToken: () => {}
+  setToken: () => {},
+  reset: () => {}
 })
 
 export function useToken () {

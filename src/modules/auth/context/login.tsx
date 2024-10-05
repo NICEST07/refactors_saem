@@ -4,7 +4,7 @@ import { createContext, useContext } from 'react'
 
 export interface LoginState {
   userMail: `${string}@${string}` | null
-  methoAuths: ['GOOGLE', 'MAIL'] | [] | null
+  methoAuths: ['GOOGLE', 'MAIL'] | ['MAIL' | 'GOOGLE'] | []
   failConfig: FailConfig | null
 }
 

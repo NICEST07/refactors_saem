@@ -1,6 +1,7 @@
 import { BrandLogo } from '@src/core/components/brand-logo'
 import { ReCaptchaProvider } from '@src/modules/auth/providers/re-captcha'
 import { TokenProvider } from '@src/modules/auth/providers/token'
+import { Toaster } from 'sonner'
 
 export default function AuthLayout ({ children }: { children: React.ReactNode }) {
   return (
@@ -17,6 +18,7 @@ export default function AuthLayout ({ children }: { children: React.ReactNode })
           </div>
         </section>
       </main>
+      <Toaster richColors position='top-center' />
     </ReCaptchaProvider>
   )
 }

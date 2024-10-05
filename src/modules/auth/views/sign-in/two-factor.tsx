@@ -1,14 +1,8 @@
 'use client'
 import { useTranslations } from 'next-intl'
-import { useLoginContext } from '../../context/login'
-import { useToken } from '../../context/token'
-import { useRef } from 'react'
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
-import { useStepFlow } from '@src/core/components/step-flow'
 import { useController, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { twoFactorSchema, TwoFactorValues } from '../../schemas/two-factor'
-import { toast } from 'sonner'
+import { twoFactorSchema } from '../../schemas/two-factor'
 import { Form } from '@src/core/components/ui/form'
 import { METHODSAUTH } from '../../constants/methods-auth'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@src/core/components/ui/tooltip'
@@ -21,14 +15,13 @@ import { InputController } from '@src/core/components/fields-controls/input'
 import { Button } from '@src/core/components/ui/button'
 import { Separator } from '../../components/separator'
 import { ReSendCode } from '@src/core/components/re-send-code'
+import { useTwoFactor } from '../../hooks/use-two-factor'
+import { RectangleEllipsis } from 'lucide-react'
+import { ConditionalRender } from '@src/core/components/conditional-render'
 
-export function TwoFactorForm () {
-  const t = useTranslations('loginPage.twofactor')
-  const { token, setToken } = useToken()
-  const { methoAuths, userMail, setFailConfig } = useLoginContext()
-  const sendMail = useRef(false)
-  const { executeRecaptcha } = useGoogleReCaptcha()
-  const { setStep } = useStepFlow()
+export default function TwoFactorForm () {
+  const t = useTranslations('auth.twofactor')
+  const { onSubmit, firstSendEmail, methoAuths, userMail, handleSendMailCode, handleCancel } = useTwoFactor()
 
   const form = useForm({
     resolver: zodResolver(twoFactorSchema),
@@ -37,53 +30,22 @@ export function TwoFactorForm () {
       code: ''
     }
   })
+
   const { field } = useController({ name: 'method', control: form.control })
-
-  const redirect = useFailConfig()
-
-  const onSubmit = async (data: TwoFactorValues) => {
-    const tokenCaptcha = await executeRecaptcha?.('TWOFACTOR') ?? ''
-    try {
-      const res = await validateCode({ ...data, tokenCaptcha }, token)
-      setToken(res.token)
-      setFailConfig(res.failConfig)
-      redirect(res.failConfig)
-    } catch (error: any) {
-      toast.error(error?.message)
-    }
-  }
-
-  const authDefault = form.watch('method', methoAuths?.[0] ?? METHODSAUTH.MAIL)
-  const handleActions = (currentValue: string) => {
-    const dicc: Record<string, () => void> = {
-      [METHODSAUTH.MAIL]: () => {
-        if (sendMail.current) return
-        try {
-          const data = await resendEmailCode(token)
-          if (data.success === true) toast.success(data?.errorsForm)
-          sendMail.current = true
-        } catch (error: any) {
-          toast.error(error?.message)
-        }
-      }
-    }
-
-    dicc[currentValue]?.()
-  }
 
   return (
     <Form {...form}>
       <form className='grid gap-4' onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <ToggleGroup
-          value={field.value} type='single' onValueChange={(value) => {
+          value={field.value} type='single' onValueChange={(value: 'MAIL' | 'GOOGLE') => {
             field.onChange(value)
-            handleActions(value)
+            firstSendEmail(value)
           }}
         >
           {methoAuths?.map((auth) => (
             <TooltipProvider key={auth}>
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <ToggleGroupItem
                     value={auth}
                     className={`${field.value === auth ? 'bg-palette-primary/20' : ''}
@@ -93,7 +55,7 @@ export function TwoFactorForm () {
                   </ToggleGroupItem>
                 </TooltipTrigger>
                 <TooltipContent>
-                  {t(`tooltip.${auth.toLowerCase()}`)}
+                  {t('methodAuth', { auth })}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -101,18 +63,18 @@ export function TwoFactorForm () {
         </ToggleGroup>
         <div>
           <Label htmlFor='code' className='ml-2 dark:text-white'>
-            {
-              authDefault === METHODSAUTH.MAIL
-                ? `${t('labelCode.email')} ${userMail}`
-                : `${t('labelCode.google')}`
-            }
+            {t('label', { method: field.value, userMail })}
           </Label>
 
           <WrapperIcon
+            startIcon={<RectangleEllipsis className='text-palette-primary' />}
             endIcon={
-              authDefault === METHODSAUTH.MAIL && (
-                <ReSendCode title={t('tooltip.reSendMail')} fetcher={async () => await resendEmailCode(token)} />
-              )
+              <ConditionalRender shouldRender={field.value === METHODSAUTH.MAIL}>
+                <ReSendCode
+                  title={t('tooltip.reSendMail')}
+                  fetcher={handleSendMailCode}
+                />
+              </ConditionalRender>
             }
           >
             <InputController
@@ -133,10 +95,10 @@ export function TwoFactorForm () {
         <Button
           variant='outline-secondary'
           type='button'
-          onClick={() => setStep(0)}
+          onClick={handleCancel}
           className='uppercase rounded-full border h-12'
         >
-          {t('link')}
+          {t('back')}
         </Button>
       </form>
     </Form>

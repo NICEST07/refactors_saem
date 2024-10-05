@@ -18,9 +18,13 @@ export function TokenProvider ({ children }: { children: React.ReactNode }) {
     setToken(token)
     localStorage.setItem('token', token)
   }
+  const reset = () => {
+    setToken('')
+    localStorage.removeItem('token')
+  }
 
   return (
-    <TokenContext.Provider value={{ token, setToken: handleToken }}>
+    <TokenContext.Provider value={{ token, setToken: handleToken, reset }}>
       {children}
     </TokenContext.Provider>
   )

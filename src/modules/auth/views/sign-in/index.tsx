@@ -17,7 +17,7 @@ import Link from 'next/link'
 import { loginUser } from '../../services/login'
 import { toast } from 'sonner'
 import { useStepFlow } from '@src/core/components/step-flow'
-import { VIEWS } from '../../constants/views'
+import { STEPS_LOGIN } from '../../constants/views'
 import { useRouter } from '@src/config/i18n/routing'
 
 export function LoginForm () {
@@ -44,7 +44,7 @@ export function LoginForm () {
       const { methoAuths, token, userMail } = result
       setToken(token)
       setTwoFactor({ userMail, methoAuths })
-      setStep(VIEWS.TWOFACTOR)
+      setStep(STEPS_LOGIN.TWOFACTOR)
     } else {
       toast.error(result.error, { position: 'top-center' })
     }
