@@ -4,10 +4,11 @@ import { LoginForm } from '@src/modules/auth/views/sign-in'
 import dynamic from 'next/dynamic'
 
 const TwoFactor = dynamic(async () => await import('@src/modules/auth/views/sign-in/two-factor'))
+const ResetPassword = dynamic(async () => await import('@src/modules/auth/views/sign-in/reset-password'))
 
 export default function LoginPage () {
   return (
-    <StepFlowProvider defaultValue={STEPS_LOGIN.TWOFACTOR}>
+    <StepFlowProvider defaultValue={STEPS_LOGIN.RESETPASSWORD}>
       <StepItem value={STEPS_LOGIN.LOGIN}>
         <LoginForm />
       </StepItem>
@@ -15,9 +16,7 @@ export default function LoginPage () {
         <TwoFactor />
       </StepItem>
       <StepItem value={STEPS_LOGIN.RESETPASSWORD}>
-        <h1>
-          RESETPASSWORD
-        </h1>
+        <ResetPassword />
       </StepItem>
       <StepItem value={STEPS_LOGIN.ADDGOOGLEAUTH}>
         <h1>
