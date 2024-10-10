@@ -1,9 +1,9 @@
 'use client'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react'
 
 interface StepsContextProps {
   step: string | number
-  setStep: React.Dispatch<React.SetStateAction<string | number>>
+  setStep: (value: string | number) => void
 }
 
 const StepsContext = createContext<StepsContextProps | null>(null)
@@ -11,8 +11,14 @@ const StepsContext = createContext<StepsContextProps | null>(null)
 export function StepFlowProvider ({ children, defaultValue = '' }: { children: React.ReactNode, defaultValue: StepsContextProps['step'] }) {
   const [step, setStep] = useState<string | number>(defaultValue)
 
+  const handleStep = useCallback((value: StepsContextProps['step']) => {
+    setStep(value)
+  }, [])
+
+  const value = useMemo(() => ({ step, setStep: handleStep }), [step, handleStep])
+
   return (
-    <StepsContext.Provider value={{ step, setStep }}>
+    <StepsContext.Provider value={value}>
       {children}
     </StepsContext.Provider>
   )

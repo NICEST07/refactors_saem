@@ -1,9 +1,9 @@
-import type { ServicesResponse } from '@src/core/models/services-response'
+import { ServiceApiResponse } from '@src/core/models/api-response'
 import type { LoginValues } from '../schemas/login'
 import type { adaptLoginService } from '../services/login'
 import type { ErrorService } from './error'
 
-export interface LoginServiceResponse extends ServicesResponse {
+export interface LoginServiceResponse extends ServiceApiResponse {
   securityMail: `${string}@${string}`
   token: string
   typesAuth: ['GOOGLE', 'MAIL']

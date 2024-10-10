@@ -8,7 +8,7 @@ const ResetPassword = dynamic(async () => await import('@src/modules/auth/views/
 
 export default function LoginPage () {
   return (
-    <StepFlowProvider defaultValue={STEPS_LOGIN.RESETPASSWORD}>
+    <StepFlowProvider defaultValue={STEPS_LOGIN.LOGIN}>
       <StepItem value={STEPS_LOGIN.LOGIN}>
         <LoginForm />
       </StepItem>

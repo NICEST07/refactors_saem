@@ -1,4 +1,4 @@
-export interface ServicesResponse {
+export interface ServiceApiResponse {
   success: boolean
   errorsForm?: string
 }
